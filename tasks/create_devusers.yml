@@ -9,6 +9,7 @@
     name: "{{ item.name }}"
     group: "{{ item.name }}"
     groups: "{{ item.groups }}"
+    home: "/home/{{ item.name }}"
     shell: /bin/bash
 
 - name: "Create SymLink for User"
