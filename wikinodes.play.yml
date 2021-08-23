@@ -1,0 +1,20 @@
+---
+- hosts: alpha.wikinodes.wintergatan.community
+  roles:
+  - smmk.webhost
+  tasks:
+    - name: "Setup wiki {{ item.domain }}"
+      include_role:
+        name: smmk.dokuwiki
+      vars:
+        dokuwiki_docroot: "/var/www/{{ item.domain }}"
+        dokuwiki_owner: "{{ item.user }}"
+        dokuwiki_group: "{{ item.group }}"
+      loop:
+        - { domain: 'wiki.wintergatan.community', user: 'wtgtwiki', group: 'wtgtwiki'}
+
+    -name: "Setup dev accounts"
+    include_tasks: task/create_devusers.yml
+    loop:
+      - { name: 'tomq', groups: 'wtgtwiki', urls: ['wiki.wintergatan.community'], key: "{{ lookup('file', 'files/public_keys/id_tomq')}}" }
+      - { name: 'maesto', groups: 'wtgtwiki', urls:['wiki.wintergatan.community'], key: "{{ lookup('file', 'files/public_keys/id_maesto') }}" }

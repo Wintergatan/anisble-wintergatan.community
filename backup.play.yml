@@ -1,0 +1,7 @@
+- hosts: backup.wintergatan.community
+  roles:
+    - maesto.rsnapshot-server
+
+- hosts: wikinodes
+  roles:
+    - maesto.rsnapshot-client

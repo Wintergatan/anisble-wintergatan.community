@@ -1,0 +1,32 @@
+---
+roles:
+  - name: geerlingguy.apache
+    version: master
+  - name: maesto.rsnapshot-server
+    src: git+https://github.com/Maesto/ansible-role-rsnapshot-server.git
+    version: main
+    type: git
+  - name: maesto.rsnapshot-client
+    src: git+https://github.com/Maesto/ansible-role-rsnapshot-client.git
+    version: main
+    type: git
+  - name: smmk.webhost
+    src: git+https://github.com/Siegfrieds-Mechanisches-Musikkabinett/ansible-role-webhost.git
+    version: main
+    type: git
+  - name: smmk.dokuwiki
+    src: git+https://github.com/Siegfrieds-Mechanisches-Musikkabinett/ansible-role-dokuwiki.git
+    version: main
+    type: git
+  - name: smmk.acme_sh
+    src: git+https://github.com/Siegfrieds-Mechanisches-Musikkabinett/ansible-role-acme_sh.git
+    version: master
+    type: git
+  - name: geerlingguy.php
+    version: master
+  - name: geerlingguy.apache-php-fpm
+    version: master
+collections:
+  - name: hetzner.hcloud
+  - name: ansible.posix
+

@@ -1,0 +1,9 @@
+[all:vars]
+backup_server=backup.wintergatan.community
+
+[infrastructure]
+backup.wintergatan.community
+
+[wikinodes]
+alpha.wikinodes.wintergatan.community
+
