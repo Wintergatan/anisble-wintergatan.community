@@ -1,0 +1,8 @@
+#NEVER CHANGE THIS PART^. backup.wintergatan.community is also a production system!
+- hosts: backup.wintergatan.community
+  roles:
+    - maesto.rsnapshot-server
+
+- hosts: web
+  roles:
+    - maesto.rsnapshot-client

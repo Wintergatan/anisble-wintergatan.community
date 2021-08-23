@@ -1,0 +1,36 @@
+---
+- hosts: web-1.devel.wintergatan.community
+  roles:
+    - role: smmk.webhost
+      tags:
+        - apachesetup
+  tasks:
+    - name: "Setup dev wiki"
+      include_role:
+        name: smmk.dokuwiki
+      vars:
+        dokuwiki_docroot: "/var/www/{{ item.domain }}"
+        dokuwiki_owner: "{{ item.user }}"
+        dokuwiki_group: "{{ item.group }}"
+      loop:
+        - { domain: 'wiki.web-1.devel.wintergatan.community', user: 'wiki', group: 'wiki'}
+
+    - name: "Setup dev accounts"
+      include_tasks: tasks/create_devusers.yml
+      loop:
+        - {name: cameron , groups: wiki ,  urls: ['cameron.web-1.devel.wintergatan.community','wiki.web-1.devel.wintergatan.community'], key: "{{ lookup('file', 'files/public_keys/id_cameron')}}"}
+        - {name: maesto , groups: "filedrop,wiki" ,  urls: ['filedrop.web-1.devel.wintergatan.community','wiki.web-1.devel.wintergatan.community'], key: "{{ lookup('file', 'files/public_keys/id_maesto')}}"}
+
+    - name: "Ensure webroot Fileperms"
+      include_tasks: tasks/shared_webroot_fileperms.yml
+      loop:
+        - {name: "wiki.web-1.devel.wintergatan.community", owner: "wiki", group: "wiki"}
+        - {name: "filedrop.web-1.devel.wintergatan.community", owner: "filedrop", group: "filedrop"}
+        - {name: "cameron.web-1.devel.wintergatan.community", owner: "cameron", group: "cameron"}
+
+
+
+- hosts: web-2.devel.wintergatan.community
+  roles:
+  - smmk.webhost
+

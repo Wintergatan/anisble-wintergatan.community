@@ -1,0 +1,33 @@
+---
+# Creates all Hetzner VMs, currently seperate from the main playbook due to fact gathering - among other things - not working until DNS works
+- hosts: hetzner_vms
+  gather_facts: no
+  tasks:
+
+  # XXX Move the API Tokens into pass or a vault before actual use!
+  - name: Create {{ inventory_hostname }} Server
+    local_action:
+      module: hcloud_server
+      name: "{{ inventory_hostname }}"
+      api_token: "{{ hetzner_api_token }}"
+      server_type: "{{ hetzner_server_type }}"
+      image: "{{ hetzner_image }}"
+      location: "{{ hetzner_location }}"
+      ssh_keys: "{{ hetzner_ssh_keys }}"
+      state: present
+      delete_protection: yes
+      rebuild_protection: yes
+
+  - name: get vm ip
+    local_action:
+     module: hcloud_server_info
+     name: "{{ inventory_hostname }}"
+     api_token: "{{ hetzner_api_token}}"
+    register: vminfo
+
+  - name: show ip(s)
+    ansible.builtin.debug:
+      msg: "{{ vminfo.hcloud_server_info[0].ipv4_address }} | {{ vminfo.hcloud_server_info[0].ipv6 }}"    
+
+
+#TODO Setup DNS

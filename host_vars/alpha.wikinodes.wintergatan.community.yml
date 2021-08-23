@@ -1,0 +1,6 @@
+active_domains:
+  - servername: "wiki.wintergatan.community"
+    interpreter: "php-fpm"
+    webuser: "wtgtwiki"
+    webgroup: "wtgtwiki"
+    redirect_to_ssl: True

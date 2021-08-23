@@ -1,0 +1,7 @@
+active_domains:
+  - servername: "pm.devel.wintergatan.community"
+    interpreter: "php-fpm"
+    webuser: "pm"
+    webgroup: "pm"
+    redirect_to_ssl: True
+

@@ -1,0 +1,26 @@
+active_domains:
+  - servername: "wiki.devel.wintergatan.community"
+    interpreter: "none"
+    webuser: "develwiki"
+    webgroup: "develwiki"
+    redirect_to_ssl: True
+    extra_parameters: "Redirect Permanent / https://wiki.wintergatan.community/"
+  - servername: "cameron.web-1.devel.wintergatan.community"
+    interpreter: "php-fpm"
+    webuser: "cameron"
+    webgroup: "cameron"
+    webroot_mode: "2770"
+    redirect_to_ssl: True
+  - servername: "wiki.web-1.devel.wintergatan.community"
+    interpreter: "php-fpm"
+    webuser: "wiki"
+    webgroup: "wiki"
+    webroot_mode: "2770"
+    redirect_to_ssl: True
+  - servername: "filedrop.web-1.devel.wintergatan.community"
+    interpreter: "php-fpm"
+    webuser: "filedrop"
+    webgroup: "filedrop"
+    webroot_mode: "2770"
+    redirect_to_ssl: True
+
