@@ -1,0 +1,25 @@
+---
+- name: "Ensure SetGID for webroots"
+  ansible.builtin.file:
+    path: "/var/www/{{ item.name}}/"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: 'u=rwX,g=rwsX'
+    recurse: yes
+
+- name: "Set ACLs"
+  ansible.posix.acl:
+    path: "/var/www/{{ item.name }}/"
+    recursive: yes
+    state: present
+    etype: group
+    permissions: rwX
+
+- name: "Set ACLs"
+  ansible.posix.acl:
+    path: "/var/www/{{ item.name }}/"
+    default: yes
+    recursive: yes
+    state: present
+    etype: group
+    permissions: rwX

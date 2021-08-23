@@ -1,0 +1,27 @@
+---
+- name: Ensure primary groups exist
+  ansible.builtin.group:
+    name: "{{ item.name }}"
+    state: present
+
+- name: "Create User"
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    group: "{{ item.name }}"
+    groups: "{{ item.groups }}"
+    shell: /bin/bash
+
+- name: "Create SymLink for User"
+  ansible.builtin.file:
+    src: "/var/www/{{ symitem }}"
+    path: "/home/{{ item.name}}/{{ symitem }}"
+    state: link
+  loop_control:
+    loop_var: symitem
+  loop: "{{ item.urls}}"
+
+- name: Set authorized keyfiles
+  ansible.posix.authorized_key:
+    user: "{{ item.name}}"
+    key: "{{ item.key}} "
+    state: present

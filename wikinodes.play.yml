@@ -13,8 +13,14 @@
       loop:
         - { domain: 'wiki.wintergatan.community', user: 'wtgtwiki', group: 'wtgtwiki'}
 
-    -name: "Setup dev accounts"
+    - name: "Setup dev accounts"
     include_tasks: task/create_devusers.yml
     loop:
       - { name: 'tomq', groups: 'wtgtwiki', urls: ['wiki.wintergatan.community'], key: "{{ lookup('file', 'files/public_keys/id_tomq')}}" }
       - { name: 'maesto', groups: 'wtgtwiki', urls:['wiki.wintergatan.community'], key: "{{ lookup('file', 'files/public_keys/id_maesto') }}" }
+
+    - name: "Ensure fileperms of shared webroots"
+      include_tasks: tasks/shared_webroot_fileperms.yml
+      loop:
+        - { name: 'wiki.wintergatan.community', owner: 'wtgtwiki', group: 'wtgtwiki'}
+
