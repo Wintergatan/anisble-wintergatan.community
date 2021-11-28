@@ -2,6 +2,6 @@
   roles:
     - maesto.rsnapshot-server
 
-- hosts: wikinodes
+- hosts: wikinodes:infrastructure
   roles:
     - maesto.rsnapshot-client
