@@ -5,6 +5,12 @@
     notify:
       - restart sshd
 
+  - name: Set authorized keys for root
+    ansible.posix.authorized_key:
+      user: root
+      state: present
+      key: "{{ lookup('file', 'files/public_keys/id_phochs') }}"
+
   handlers:
   - name: restart sshd
     service:
